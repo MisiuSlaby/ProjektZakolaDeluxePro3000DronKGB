@@ -1,0 +1,57 @@
+using System.Numerics;
+using UnityEngine;
+
+public class PlayerMove : MonoBehaviour
+{
+    // Ustawienia
+    [SerializeField] private float moveSpeed = 5f;
+
+    // Infromowanie o stanie dotkniêcia mo¿na debugowaæ ale ogólnie s¹ zbêdne w inspektorze
+    [SerializeField] private bool isTouchUp = true;
+    [SerializeField] private bool isTouchLeft = true;
+    [SerializeField] private bool isTouchRight = true;
+    [SerializeField] private bool isTouchDown = true;
+
+    // Detektory
+    [SerializeField] private Transform upTouchCheck;
+    [SerializeField] private Transform leftTouchCheck;
+    [SerializeField] private Transform rightTouchCheck;
+    [SerializeField] private Transform downTouchCheck;
+
+    // Elementy
+    private Rigidbody2D rb;
+
+    // Typy powieszchni
+    [SerializeField] private LayerMask surfaceLayers;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        // Sprawdzenie czy istnieje fizyka
+        if (GetComponent<Rigidbody2D>() != null)
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Sprawdzenie kolizji w ró¿nych punktach
+        //isTouchUp = Physics2D.OverlapCircle(upTouchCheck.position, 0.2f, surfaceLayers);
+        //isTouchLeft = Physics2D.OverlapCircle(leftTouchCheck.position, 0.2f, surfaceLayers);
+        //isTouchRight = Physics2D.OverlapCircle(rightTouchCheck.position, 0.2f, surfaceLayers);
+        isTouchDown = Physics2D.OverlapCircle(downTouchCheck.position, 0.2f, surfaceLayers);
+
+        // Je¿eli gracz nie przytrzymuje spacji oraz postaæ dotyka pod³o¿a (nie ma w powietrzu)
+        if (!Input.GetKey(KeyCode.Space) && isTouchDown)
+        {
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            {
+                float moveInput = Input.GetAxis("Horizontal");
+                rb.velocity = new UnityEngine.Vector2(moveInput * moveSpeed, rb.velocity.y);
+                Debug.Log("Postaæ wykonuje ruch!");
+            }
+        }
+    }
+}
