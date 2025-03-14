@@ -5,19 +5,12 @@ public class PlayerMove : MonoBehaviour
 {
     // Ustawienia
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private bool snapJump = false;
-    [SerializeField] private bool jumpUp = true;
-    [SerializeField] private bool jumpLeft = false;
-    [SerializeField] private bool jumpRight = false;
-    [SerializeField] private bool jumpDown = false;
 
     // Infromowanie o stanie dotkniêcia mo¿na debugowaæ ale ogólnie s¹ zbêdne w inspektorze
     [SerializeField] private bool isTouchUp = true;
     [SerializeField] private bool isTouchLeft = true;
     [SerializeField] private bool isTouchRight = true;
     [SerializeField] private bool isTouchDown = true;
-    [SerializeField] private int lastTouchSurfaceType = 0; // Przyda siê do double jumpa itp
 
     // Detektory
     [SerializeField] private Transform upTouchCheck;
@@ -29,9 +22,7 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody2D rb;
 
     // Typy powieszchni
-    [SerializeField] private LayerMask surfaceLayer;
-    [SerializeField] private LayerMask iceLayer;
-    [SerializeField] private LayerMask mudLayer;
+    [SerializeField] private LayerMask surfaceLayers;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,43 +37,21 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float moveInput = Input.GetAxis("Horizontal");
+        // Sprawdzenie kolizji w ró¿nych punktach
+        //isTouchUp = Physics2D.OverlapCircle(upTouchCheck.position, 0.2f, surfaceLayers);
+        //isTouchLeft = Physics2D.OverlapCircle(leftTouchCheck.position, 0.2f, surfaceLayers);
+        //isTouchRight = Physics2D.OverlapCircle(rightTouchCheck.position, 0.2f, surfaceLayers);
+        isTouchDown = Physics2D.OverlapCircle(downTouchCheck.position, 0.2f, surfaceLayers);
 
-        rb.velocity = new UnityEngine.Vector2(moveInput * moveSpeed, rb.velocity.y);
-
-        // Sprawdzenie z czym koliduje gracz
-        isTouchUp = Physics2D.OverlapCircle(upTouchCheck.position, 0.2f, surfaceLayer);
-        isTouchLeft = Physics2D.OverlapCircle(leftTouchCheck.position, 0.2f, surfaceLayer);
-        isTouchRight = Physics2D.OverlapCircle(rightTouchCheck.position, 0.2f, surfaceLayer);
-        isTouchDown = Physics2D.OverlapCircle(downTouchCheck.position, 0.2f, surfaceLayer);
-
-        // SnapJump
-        float jumpPower;
-        if (snapJump == true)
+        // Je¿eli gracz nie przytrzymuje spacji oraz postaæ dotyka pod³o¿a (nie ma w powietrzu)
+        if (!Input.GetKey(KeyCode.Space) && isTouchDown)
         {
-            jumpPower = 500f;
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            {
+                float moveInput = Input.GetAxis("Horizontal");
+                rb.velocity = new UnityEngine.Vector2(moveInput * moveSpeed, rb.velocity.y);
+                Debug.Log("Postaæ wykonuje ruch!");
+            }
         }
-        else
-        {
-            jumpPower = jumpForce;
-        }
-
-        // Skok
-        if (Input.GetKeyDown(KeyCode.Space) && isTouchDown && jumpUp)
-        {
-            rb.velocity = new UnityEngine.Vector2(rb.velocity.x, jumpPower);
-        }
-        if (Input.GetKeyDown(KeyCode.A) && isTouchRight && jumpLeft)
-        {
-            rb.velocity = new UnityEngine.Vector2(jumpPower * -1f, rb.velocity.y);
-        }
-        if (Input.GetKeyDown(KeyCode.D) && isTouchLeft && jumpRight)
-        {
-            rb.velocity = new UnityEngine.Vector2(jumpPower, rb.velocity.y);
-        }
-        //if (Input.GetKeyDown(KeyCode.S) && isTouchUp && jumpDown)
-        //{
-        //    rb.velocity = new UnityEngine.Vector2(rb.velocity.x, jumpPower * -1f);
-        //}
     }
 }

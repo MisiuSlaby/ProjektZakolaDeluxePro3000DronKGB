@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 4809323314146025579}
   - component: {fileID: 8998826872929763632}
   - component: {fileID: 8653100001514703879}
+  - component: {fileID: 1190656081928851167}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -314,7 +315,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5880556934690877101}
@@ -448,7 +449,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &8653100001514703879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,30 +463,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  jumpForce: 5
-  snapJump: 0
-  jumpUp: 1
-  jumpLeft: 0
-  jumpRight: 0
-  jumpDown: 0
   isTouchUp: 1
   isTouchLeft: 1
   isTouchRight: 1
   isTouchDown: 1
-  lastTouchSurfaceType: 0
   upTouchCheck: {fileID: 5608739619859857693}
   leftTouchCheck: {fileID: 2396267686894514659}
   rightTouchCheck: {fileID: 1137159810280573437}
   downTouchCheck: {fileID: 4699956350372549932}
-  surfaceLayer:
+  surfaceLayers:
     serializedVersion: 2
     m_Bits: 64
-  iceLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  mudLayer:
-    serializedVersion: 2
-    m_Bits: 256
+--- !u!114 &1190656081928851167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6741308534220808515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4650a9b31154e34da695c70a7bdd9fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canSelectAngle: 1
+  angleCycleTime: 2.5
+  shootForce: 10
 --- !u!1 &8644000255174883230
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,8 +517,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8644000255174883230}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.5903153, y: -7.475, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
