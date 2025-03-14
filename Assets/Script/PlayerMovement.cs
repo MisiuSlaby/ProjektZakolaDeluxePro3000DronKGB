@@ -39,8 +39,8 @@ public class PlayerMove : MonoBehaviour
     {
         // Sprawdzenie kolizji w ró¿nych punktach
         //isTouchUp = Physics2D.OverlapCircle(upTouchCheck.position, 0.2f, surfaceLayers);
-        //isTouchLeft = Physics2D.OverlapCircle(leftTouchCheck.position, 0.2f, surfaceLayers);
-        //isTouchRight = Physics2D.OverlapCircle(rightTouchCheck.position, 0.2f, surfaceLayers);
+        isTouchLeft = Physics2D.OverlapCircle(leftTouchCheck.position, 0.2f, surfaceLayers);
+        isTouchRight = Physics2D.OverlapCircle(rightTouchCheck.position, 0.2f, surfaceLayers);
         isTouchDown = Physics2D.OverlapCircle(downTouchCheck.position, 0.2f, surfaceLayers);
 
         // Je¿eli gracz nie przytrzymuje spacji oraz postaæ dotyka pod³o¿a (nie ma w powietrzu)
@@ -52,6 +52,14 @@ public class PlayerMove : MonoBehaviour
                 rb.velocity = new UnityEngine.Vector2(moveInput * moveSpeed, rb.velocity.y);
                 Debug.Log("Postaæ wykonuje ruch!");
             }
+            //else
+            //{
+            //    rb.velocity = new UnityEngine.Vector2(0f, rb.velocity.y);
+            //}
+        }
+        else if (!isTouchDown && isTouchLeft == true || isTouchRight == true)
+        {
+            rb.velocity = new UnityEngine.Vector2(rb.velocity.x * -1f, rb.velocity.y + 1f);
         }
     }
 }

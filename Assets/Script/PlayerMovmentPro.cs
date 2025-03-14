@@ -7,7 +7,7 @@ public class AngleShooter : MonoBehaviour
     public bool canSelectAngle = true;
 
     [Tooltip("Czas cyklu zmiany k¹ta. Im mniejsza wartoœæ, tym szybciej zmienia.")]
-public float angleCycleTime = 1f;
+    public float angleCycleTime = 1f;
 
     [Header("Si³a skoku")]
     [Tooltip("Wielkoœæ si³y dodawanej do obiektu przy skoku.")]
@@ -22,6 +22,9 @@ public float angleCycleTime = 1f;
 
     // Odniesienie do komponentu Rigidbody2D
     private Rigidbody2D rb;
+
+    [SerializeField] private GameObject Arrow;
+    [SerializeField] ArrowController playerArrow;
 
     void Start()
     {
@@ -51,6 +54,9 @@ public float angleCycleTime = 1f;
                 float elapsed = Time.time - startTime;
                 // Mathf.PingPong generuje wartoœæ od 0 do 180, po czym odejmujemy 90 aby uzyskaæ zakres [-90, 90]
                 currentAngle = Mathf.PingPong(elapsed / angleCycleTime * 180f, 180f) - 90f;
+                float normalizedAngle = (currentAngle + 90f) / 180f;
+
+                playerArrow.SetValue(normalizedAngle);
                 Debug.Log("Aktualny k¹t: " + currentAngle + "° (czas trzymania: " + elapsed.ToString("F2") + " sekundy)");
             }
 
