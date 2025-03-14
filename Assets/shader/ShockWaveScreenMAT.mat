@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3154815663561039771
+--- !u!114 &-6941831196965540821
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShockWaveMat
-  m_Shader: {fileID: -6465566751694194690, guid: d52f2b89c92d94f4bba6342e4ceb4873, type: 3}
+  m_Name: ShockWaveScreenMAT
+  m_Shader: {fileID: -6465566751694194690, guid: ed867c0809772d140b1af01f569b8d18, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -36,6 +36,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _CameraSortingLayerTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -56,7 +60,7 @@ Material:
     m_Floats:
     - _ShockWaveStrength: -0.1
     - _Size: 0.05
-    - _WaveDistanceFromCenter: 0.319
+    - _WaveDistanceFromCenter: 0.5
     m_Colors:
     - _RingSpawnPos: {r: 0.5, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
