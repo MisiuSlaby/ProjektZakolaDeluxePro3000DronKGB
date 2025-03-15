@@ -1,5 +1,6 @@
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private Transform downTouchCheck;
 
     // Elementy
+    [SerializeField] private Tilemap tilemap;
     private Rigidbody2D rb;
 
     // Typy powieszchni
