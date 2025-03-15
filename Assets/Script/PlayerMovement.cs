@@ -21,7 +21,6 @@ public class PlayerMove : MonoBehaviour
 
     // Elementy
     private Rigidbody2D rb;
-    private SpriteRenderer sprite;
 
     // Typy powieszchni
     [SerializeField] private LayerMask surfaceLayers;
@@ -34,7 +33,6 @@ public class PlayerMove : MonoBehaviour
         if (GetComponent<Rigidbody2D>() != null)
         {
             rb = GetComponent<Rigidbody2D>();
-            sprite = GetComponent<SpriteRenderer>();
         }
     }
     
@@ -56,14 +54,6 @@ public class PlayerMove : MonoBehaviour
                 float moveInput = Input.GetAxis("Horizontal");
                 rb.velocity = new UnityEngine.Vector2(moveInput * moveSpeed, rb.velocity.y);
                 //Debug.Log("Postaæ wykonuje ruch!");
-                if (Input.GetKey(KeyCode.A))
-                {
-                    sprite.flipX = false;
-                }
-                else if (Input.GetKey(KeyCode.D))
-                {
-                    sprite.flipX = true;
-                }
             }
             //else
             //{
