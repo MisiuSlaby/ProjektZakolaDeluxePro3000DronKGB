@@ -20,11 +20,12 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private Transform downTouchCheck;
 
     // Elementy
-    [SerializeField] private Tilemap tilemap;
     private Rigidbody2D rb;
+    private SpriteRenderer sprite;
 
     // Typy powieszchni
     [SerializeField] private LayerMask surfaceLayers;
+    public UnityEngine.Vector2 sideBoxSize = new UnityEngine.Vector2(1f, 2f);
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,16 +34,18 @@ public class PlayerMove : MonoBehaviour
         if (GetComponent<Rigidbody2D>() != null)
         {
             rb = GetComponent<Rigidbody2D>();
+            sprite = GetComponent<SpriteRenderer>();
         }
     }
-
+    
     // Update is called once per frame
     void Update()
     {
         // Sprawdzenie kolizji w ró¿nych punktach
         //isTouchUp = Physics2D.OverlapCircle(upTouchCheck.position, 0.2f, surfaceLayers);
-        isTouchLeft = Physics2D.OverlapCircle(leftTouchCheck.position, 0.2f, surfaceLayers);
-        isTouchRight = Physics2D.OverlapCircle(rightTouchCheck.position, 0.2f, surfaceLayers);
+        isTouchLeft = Physics2D.OverlapBox(leftTouchCheck.position, sideBoxSize, 0f, surfaceLayers);
+        // Detekcja po prawej stronie
+        isTouchRight = Physics2D.OverlapBox(rightTouchCheck.position, sideBoxSize, 0f, surfaceLayers);
         isTouchDown = Physics2D.OverlapCircle(downTouchCheck.position, 0.2f, surfaceLayers);
 
         // Je¿eli gracz nie przytrzymuje spacji oraz postaæ dotyka pod³o¿a (nie ma w powietrzu)
@@ -53,6 +56,14 @@ public class PlayerMove : MonoBehaviour
                 float moveInput = Input.GetAxis("Horizontal");
                 rb.velocity = new UnityEngine.Vector2(moveInput * moveSpeed, rb.velocity.y);
                 //Debug.Log("Postaæ wykonuje ruch!");
+                if (Input.GetKey(KeyCode.A))
+                {
+                    sprite.flipX = false;
+                }
+                else if (Input.GetKey(KeyCode.D))
+                {
+                    sprite.flipX = true;
+                }
             }
             //else
             //{
