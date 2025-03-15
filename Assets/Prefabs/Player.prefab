@@ -417,6 +417,8 @@ GameObject:
   - component: {fileID: 8653100001514703879}
   - component: {fileID: 1190656081928851167}
   - component: {fileID: 3622522224281396105}
+  - component: {fileID: 6282078644261610909}
+  - component: {fileID: 3746745820180514575}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -594,6 +596,7 @@ MonoBehaviour:
   surfaceLayers:
     serializedVersion: 2
     m_Bits: 64
+  sideBoxSize: {x: 0.2, y: 0.7}
 --- !u!114 &1190656081928851167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -632,6 +635,34 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6282078644261610909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6741308534220808515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac93678d4ae914418bbb0834f164663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3746745820180514575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6741308534220808515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f422703ad9135c6468c7e20aa5d109ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualCamera: {fileID: 5026285731157870324}
+  defaultFOV: 60
+  zoomedInFOV: 30
+  fovChangeSpeed: 2
 --- !u!1 &8644000255174883230
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,7 +692,7 @@ Transform:
   m_GameObject: {fileID: 8644000255174883230}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 60.166134, y: -14.965892, z: -20}
+  m_LocalPosition: {x: 0, y: 0, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
