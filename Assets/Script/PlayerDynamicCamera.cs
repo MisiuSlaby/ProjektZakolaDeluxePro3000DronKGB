@@ -17,6 +17,7 @@ public class DynamicFOV : MonoBehaviour
     public float fovChangeSpeed = 2f;
 
     // Wartoœæ docelowa dla FOV
+    [SerializeField] private PlayerMove pmove; // Referencja do komponentu PlayerMove
     private float targetFOV;
 
     void Start()
@@ -25,6 +26,10 @@ public class DynamicFOV : MonoBehaviour
         {
             Debug.LogError("Brak referencji do Cinemachine Virtual Camera!");
             return;
+        }
+        if (pmove == null)
+        {
+            pmove = GetComponent<PlayerMove>();
         }
 
         // Ustawienie domyœlnego FOV
@@ -41,7 +46,7 @@ public class DynamicFOV : MonoBehaviour
     void Update()
     {
         // SprawdŸ, czy spacja jest wciœniêta
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && pmove.isTouchDown == true)
         {
             // Ustaw docelowe FOV na wartoœæ przy zoomie
             targetFOV = zoomedInFOV;

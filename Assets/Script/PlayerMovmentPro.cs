@@ -25,6 +25,9 @@ public class AngleShooter : MonoBehaviour
 
     [SerializeField] private GameObject Arrow;
     [SerializeField] ArrowController playerArrow;
+
+    [SerializeField] private GameObject Vineta;
+    [SerializeField] SpriteRenderer VinetaMat;
     [SerializeField] private PlayerMove pmove; // Referencja do komponentu PlayerMove
 
 
@@ -47,7 +50,7 @@ public class AngleShooter : MonoBehaviour
         if (canSelectAngle)
         {
             // Rozpoczêcie wyboru k¹ta
-            if (Input.GetKeyDown(KeyCode.Space) && pmove.isTouchDown)
+            if (Input.GetKeyDown(KeyCode.Space) && pmove.isTouchDown == true)
             {
                 isHoldingSpace = true;
                 startTime = Time.time;
@@ -65,6 +68,7 @@ public class AngleShooter : MonoBehaviour
 
                 playerArrow.SetValue(normalizedAngle);
                 //Debug.Log("Aktualny k¹t: " + currentAngle + "° (czas trzymania: " + elapsed.ToString("F2") + " sekundy)");
+                VinetaMat.material.SetFloat("_darknessStrength", normalizedAngle * 4f + 1f);
             }
 
             // Zwolnienie spacji powoduje wykonanie skoku
@@ -75,6 +79,7 @@ public class AngleShooter : MonoBehaviour
                 ShootAtAngle(currentAngle);
 
                 Arrow.SetActive(false);
+                VinetaMat.material.SetFloat("_darknessStrength", 0f);
             }
         }
     }
