@@ -50,7 +50,7 @@ public class PlayerMove : MonoBehaviour
             {
                 float moveInput = Input.GetAxis("Horizontal");
                 rb.velocity = new UnityEngine.Vector2(moveInput * moveSpeed, rb.velocity.y);
-                Debug.Log("Postaæ wykonuje ruch!");
+                //Debug.Log("Postaæ wykonuje ruch!");
             }
             //else
             //{
@@ -59,7 +59,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (!isTouchDown && isTouchLeft == true || isTouchRight == true)
         {
-            rb.velocity = new UnityEngine.Vector2(rb.velocity.x * -1f, rb.velocity.y + 1f);
+            rb.velocity = new UnityEngine.Vector2(rb.velocity.x * -1f, rb.velocity.y);
         }
     }
 }

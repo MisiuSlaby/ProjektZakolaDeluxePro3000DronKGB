@@ -14,7 +14,7 @@ public class AngleShooter : MonoBehaviour
     public float shootForce = 10f;
 
     // Aktualny k¹t wyboru (w stopniach)
-    private float currentAngle = 0f;
+    private float currentAngle = 90f;
     // Czas rozpoczêcia przytrzymania spacji
     private float startTime;
     // Flaga sprawdzaj¹ca, czy spacja jest przytrzymywana
@@ -31,9 +31,9 @@ public class AngleShooter : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         if (rb == null)
         {
-            Debug.LogError("Brak komponentu Rigidbody2D na obiekcie!");
+            //Debug.LogError("Brak komponentu Rigidbody2D na obiekcie!");
         }
-        Debug.Log("Skrypt AngleShooter zosta³ uruchomiony. Naciœnij spacjê, aby rozpocz¹æ wybór k¹ta (zakres: -90° do 90°).");
+        //Debug.Log("Skrypt AngleShooter zosta³ uruchomiony. Naciœnij spacjê, aby rozpocz¹æ wybór k¹ta (zakres: -90° do 90°).");
     }
 
     void Update()
@@ -45,7 +45,8 @@ public class AngleShooter : MonoBehaviour
             {
                 isHoldingSpace = true;
                 startTime = Time.time;
-                Debug.Log("Rozpoczêto trzymanie spacji. Start wyboru k¹ta: " + startTime);
+                Arrow.SetActive(true);
+                //Debug.Log("Rozpoczêto trzymanie spacji. Start wyboru k¹ta: " + startTime);
             }
 
             // Przytrzymywanie spacji powoduje zmianê k¹ta w zakresie od -90 do 90 stopni
@@ -54,18 +55,20 @@ public class AngleShooter : MonoBehaviour
                 float elapsed = Time.time - startTime;
                 // Mathf.PingPong generuje wartoœæ od 0 do 180, po czym odejmujemy 90 aby uzyskaæ zakres [-90, 90]
                 currentAngle = Mathf.PingPong(elapsed / angleCycleTime * 180f, 180f) - 90f;
-                float normalizedAngle = (currentAngle + 90f) / 180f;
+                float normalizedAngle = (1f - (currentAngle + 90f) / 180f);
 
                 playerArrow.SetValue(normalizedAngle);
-                Debug.Log("Aktualny k¹t: " + currentAngle + "° (czas trzymania: " + elapsed.ToString("F2") + " sekundy)");
+                //Debug.Log("Aktualny k¹t: " + currentAngle + "° (czas trzymania: " + elapsed.ToString("F2") + " sekundy)");
             }
 
             // Zwolnienie spacji powoduje wykonanie skoku
             if (isHoldingSpace && Input.GetKeyUp(KeyCode.Space))
             {
                 isHoldingSpace = false;
-                Debug.Log("Zwolniono spacjê. Wybrany k¹t: " + currentAngle + "°");
+                //Debug.Log("Zwolniono spacjê. Wybrany k¹t: " + currentAngle + "°");
                 ShootAtAngle(currentAngle);
+
+                Arrow.SetActive(false);
             }
         }
     }
@@ -94,8 +97,8 @@ public class AngleShooter : MonoBehaviour
         // Dodajemy impuls do Rigidbody2D
         rb.AddForce(shootDirection * shootForce, ForceMode2D.Impulse);
 
-        Debug.Log("Skok wykonany pod k¹tem: " + angle + "°." +
-                  "\nKierunek wektorowy: " + shootDirection +
-                  "\nImpulse: " + shootForce);
+        //Debug.Log("Skok wykonany pod k¹tem: " + angle + "°." +
+        //          "\nKierunek wektorowy: " + shootDirection +
+        //          "\nImpulse: " + shootForce);
     }
 }
