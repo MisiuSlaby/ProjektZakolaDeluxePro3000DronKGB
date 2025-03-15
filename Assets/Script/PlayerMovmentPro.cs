@@ -25,6 +25,8 @@ public class AngleShooter : MonoBehaviour
 
     [SerializeField] private GameObject Arrow;
     [SerializeField] ArrowController playerArrow;
+    [SerializeField] private PlayerMove pmove; // Referencja do komponentu PlayerMove
+
 
     void Start()
     {
@@ -34,6 +36,10 @@ public class AngleShooter : MonoBehaviour
             //Debug.LogError("Brak komponentu Rigidbody2D na obiekcie!");
         }
         //Debug.Log("Skrypt AngleShooter zosta³ uruchomiony. Naciœnij spacjê, aby rozpocz¹æ wybór k¹ta (zakres: -90° do 90°).");
+        if (pmove == null)
+        {
+            pmove = GetComponent<PlayerMove>();
+        }
     }
 
     void Update()
@@ -41,7 +47,7 @@ public class AngleShooter : MonoBehaviour
         if (canSelectAngle)
         {
             // Rozpoczêcie wyboru k¹ta
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && pmove.isTouchDown)
             {
                 isHoldingSpace = true;
                 startTime = Time.time;
@@ -50,7 +56,7 @@ public class AngleShooter : MonoBehaviour
             }
 
             // Przytrzymywanie spacji powoduje zmianê k¹ta w zakresie od -90 do 90 stopni
-            if (isHoldingSpace && Input.GetKey(KeyCode.Space))
+            if (isHoldingSpace && Input.GetKey(KeyCode.Space) && pmove.isTouchDown == true)
             {
                 float elapsed = Time.time - startTime;
                 // Mathf.PingPong generuje wartoœæ od 0 do 180, po czym odejmujemy 90 aby uzyskaæ zakres [-90, 90]
@@ -62,7 +68,7 @@ public class AngleShooter : MonoBehaviour
             }
 
             // Zwolnienie spacji powoduje wykonanie skoku
-            if (isHoldingSpace && Input.GetKeyUp(KeyCode.Space))
+            if (isHoldingSpace && Input.GetKeyUp(KeyCode.Space) && pmove.isTouchDown == true)
             {
                 isHoldingSpace = false;
                 //Debug.Log("Zwolniono spacjê. Wybrany k¹t: " + currentAngle + "°");

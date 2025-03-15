@@ -45,6 +45,7 @@ public class PlayerMove : MonoBehaviour
         // Detekcja po prawej stronie
         isTouchRight = Physics2D.OverlapBox(rightTouchCheck.position, sideBoxSize, 0f, surfaceLayers);
         isTouchDown = Physics2D.OverlapCircle(downTouchCheck.position, 0.2f, surfaceLayers);
+        Debug.Log(isTouchDown);
 
         // Je¿eli gracz nie przytrzymuje spacji oraz postaæ dotyka pod³o¿a (nie ma w powietrzu)
         if (!Input.GetKey(KeyCode.Space) && isTouchDown)
@@ -62,7 +63,7 @@ public class PlayerMove : MonoBehaviour
         }
         else if (!isTouchDown && isTouchLeft == true || isTouchRight == true)
         {
-            rb.velocity = new UnityEngine.Vector2(rb.velocity.x * -1f, rb.velocity.y);
+            rb.velocity = new UnityEngine.Vector2((rb.velocity.x + 100f) * -1f, rb.velocity.y);
         }
     }
 }

@@ -27,12 +27,12 @@ public class PlayerAnimation : MonoBehaviour
         float verticalVelocity = rb.velocity.y;
 
         // Obs³uga kierunku postaci
-        if (horizontalVelocity < -0.1f)
+        if (horizontalVelocity < -0.5f)
         {
             // Poruszanie w lewo
             sprite.flipX = false;
         }
-        else if (horizontalVelocity > 0.1f)
+        else if (horizontalVelocity > 0.5f)
         {
             // Poruszanie w prawo
             sprite.flipX = true;
@@ -47,13 +47,20 @@ public class PlayerAnimation : MonoBehaviour
         if (isWalking && pmove.isTouchDown && Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
             // Ustawienie animacji "Jumping"
+            animator.SetBool("Jumping", false);
             animator.SetBool("isWalking", isWalking);
             Debug.Log('1');
         }
         else if (isJumping)
         {
             Debug.Log('2');
-            animator.SetTrigger("Jumping");
+            animator.SetBool("isWalking", false);
+            animator.SetBool("Jumping", isJumping);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+            animator.SetBool("Jumping", false);
         }
     }
 }
