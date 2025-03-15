@@ -4,28 +4,56 @@ public class PlayerAnimation : MonoBehaviour
 {
     private SpriteRenderer sprite;
     private Rigidbody2D rb;
+    private Animator animator; // Referencja do Animatora
+    [SerializeField] private PlayerMove pmove; // Referencja do komponentu PlayerMove
 
     private void Awake()
     {
-        // Pobranie komponentu SpriteRenderer
+        // Pobranie komponentów
         sprite = GetComponent<SpriteRenderer>();
-
-        // Pobranie komponentu Rigidbody2D
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>(); // Pobranie komponentu Animator (upewnij siê, ¿e komponent jest dodany do obiektu)
+
+        // Jeœli nie przypisaliœmy komponentu w Inspectorze, spróbujemy go znaleŸæ na tym samym obiekcie.
+        if (pmove == null)
+        {
+            pmove = GetComponent<PlayerMove>();
+        }
     }
 
     private void Update()
     {
-        // Sprawdzamy kierunek prêdkoœci w osi x i ustawiamy flipX
-        if (rb.velocity.x < -0.1f)
+        float horizontalVelocity = rb.velocity.x;
+        float verticalVelocity = rb.velocity.y;
+
+        // Obs³uga kierunku postaci
+        if (horizontalVelocity < -0.1f)
         {
             // Poruszanie w lewo
-            sprite.flipX = false;  // Dostosuj ustawienie, np. true lub false w zale¿noœci od tego, która strona to przód
+            sprite.flipX = false;
         }
-        else if (rb.velocity.x > 0.1f)
+        else if (horizontalVelocity > 0.1f)
         {
             // Poruszanie w prawo
-            sprite.flipX = true; // Dostosuj zgodnie z Twoimi preferencjami
+            sprite.flipX = true;
+        }
+
+        // Ustawienie parametru animacji isWalking na podstawie prêdkoœci w osi x
+        bool isWalking = Mathf.Abs(horizontalVelocity) > 0.1f;
+        bool isJumping = Mathf.Abs(verticalVelocity) > 0.1f;
+
+
+        // Sprawdzenie, czy postaæ siê porusza oraz czy isTouchDown jest false
+        if (isWalking && pmove.isTouchDown && Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        {
+            // Ustawienie animacji "Jumping"
+            animator.SetBool("isWalking", isWalking);
+            Debug.Log('1');
+        }
+        else if (isJumping)
+        {
+            Debug.Log('2');
+            animator.SetTrigger("Jumping");
         }
     }
 }

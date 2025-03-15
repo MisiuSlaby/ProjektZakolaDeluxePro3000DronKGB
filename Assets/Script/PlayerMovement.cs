@@ -11,7 +11,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private bool isTouchUp = true;
     [SerializeField] private bool isTouchLeft = true;
     [SerializeField] private bool isTouchRight = true;
-    [SerializeField] private bool isTouchDown = true;
+    public bool isTouchDown = true;
 
     // Detektory
     [SerializeField] private Transform upTouchCheck;
